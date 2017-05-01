@@ -208,7 +208,7 @@ def get_accumulate_product_feat(start_date, end_date):
         actions.to_csv(dump_path, encoding='utf-8')
     return actions
 
-
+# label the the order actions
 def get_labels(start_date, end_date):
     dump_path = './cache/labels_%s_%s.csv' % (start_date, end_date)
     if os.path.exists(dump_path):
@@ -255,7 +255,7 @@ def make_test_set(train_start_date, train_end_date):
         actions = pd.merge(actions, comment_acc, how='left', on='sku_id')
         #actions = pd.merge(actions, labels, how='left', on=['user_id', 'sku_id'])
         actions = actions.fillna(0)
-        actions = actions[actions['cate'] == 8]
+        #actions = actions[actions['cate'] == 8]
 
     users = actions[['user_id', 'sku_id']].copy()
     del actions['user_id']
