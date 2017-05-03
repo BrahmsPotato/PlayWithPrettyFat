@@ -208,7 +208,7 @@ def get_accumulate_product_feat(start_date, end_date):
         actions.to_csv(dump_path, encoding='utf-8')
     return actions
 
-# label the the order actions
+
 def get_labels(start_date, end_date):
     dump_path = './cache/labels_%s_%s.csv' % (start_date, end_date)
     if os.path.exists(dump_path):
