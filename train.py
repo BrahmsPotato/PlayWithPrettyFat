@@ -1,9 +1,9 @@
-__author__ = 'foursking'
-import os
-
-mingw_path = 'C:\\Program Files\\mingw-w64\\x86_64-6.3.0-posix-seh-rt_v5-rev2\\mingw64\\bin'
-model_file_name = "./model/train_1.model"
-os.environ['PATH'] = mingw_path + ';' + os.environ['PATH']
+# __author__ = 'foursking'
+# import os
+#
+# mingw_path = 'C:\\Program Files\\mingw-w64\\x86_64-6.3.0-posix-seh-rt_v5-rev2\\mingw64\\bin'
+model_file_name = "./cache/train_1.model"
+# os.environ['PATH'] = mingw_path + ';' + os.environ['PATH']
 
 from gen_feat import make_train_set
 from gen_feat import make_test_set
@@ -96,7 +96,7 @@ def xgboost_cv():
     
     sub_user_index, sub_trainning_date=make_test_set(sub_start_date, sub_end_date)
     test = xgb.DMatrix(sub_trainning_date)
-    #y = bst.predict(test)
+    y = bst.predict(test)
   
     y_true = sub_user_index.copy()
     sub_user_index['label'] = y
