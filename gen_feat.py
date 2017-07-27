@@ -128,7 +128,7 @@ def get_accumulate_action_feat(start_date, end_date):
         actions['weights'] = actions['time'].map(lambda x: datetime.strptime(end_date, '%Y-%m-%d') - datetime.strptime(x, '%Y-%m-%d %H:%M:%S'))
         #actions['weights'] = time.strptime(end_date, '%Y-%m-%d') - actions['datetime']
         actions['weights'] = actions['weights'].map(lambda x: math.exp(-x.days))
-        print actions.head(10)
+        print (actions.head(10))
         actions['action_1'] = actions['action_1'] * actions['weights']
         actions['action_2'] = actions['action_2'] * actions['weights']
         actions['action_3'] = actions['action_3'] * actions['weights']
@@ -276,7 +276,7 @@ def make_train_set(train_start_date, train_end_date, test_start_date, test_end_d
         labels = get_labels(test_start_date, test_end_date)
 
         # generate 时间窗口
-        # actions = get_accumulate_action_feat(train_start_date, train_end_date)
+        #actions = get_accumulate_action_feat(train_start_date, train_end_date)
         actions = None
         for i in (1, 2, 3, 5, 7, 10, 15, 21, 30):
             start_days = datetime.strptime(train_end_date, '%Y-%m-%d') - timedelta(days=i)
@@ -295,6 +295,7 @@ def make_train_set(train_start_date, train_end_date, test_start_date, test_end_d
         actions = pd.merge(actions, labels, how='left', on=['user_id', 'sku_id'])
         actions = actions.fillna(0)
 
+    actions.to_csv(dump_path,encoding="utf-8")
     users = actions[['user_id', 'sku_id']].copy()
     labels = actions['label'].copy()
     del actions['user_id']
@@ -329,8 +330,8 @@ def report(pred, label):
             neg += 1
     all_user_acc = 1.0 * pos / ( pos + neg)
     all_user_recall = 1.0 * pos / len(all_user_set)
-    print '所有用户中预测购买用户的准确率为 ' + str(all_user_acc)
-    print '所有用户中预测购买用户的召回率' + str(all_user_recall)
+    print ('所有用户中预测购买用户的准确率为 ' + str(all_user_acc))
+    print ('所有用户中预测购买用户的召回率' + str(all_user_recall))
 
     pos, neg = 0, 0
     for user_item_pair in all_user_test_item_pair:
@@ -340,14 +341,14 @@ def report(pred, label):
             neg += 1
     all_item_acc = 1.0 * pos / ( pos + neg)
     all_item_recall = 1.0 * pos / len(all_user_item_pair)
-    print '所有用户中预测购买商品的准确率为 ' + str(all_item_acc)
-    print '所有用户中预测购买商品的召回率' + str(all_item_recall)
+    print ('所有用户中预测购买商品的准确率为 ' + str(all_item_acc))
+    print ('所有用户中预测购买商品的召回率' + str(all_item_recall))
     F11 = 6.0 * all_user_recall * all_user_acc / (5.0 * all_user_recall + all_user_acc)
     F12 = 5.0 * all_item_acc * all_item_recall / (2.0 * all_item_recall + 3 * all_item_acc)
     score = 0.4 * F11 + 0.6 * F12
-    print 'F11=' + str(F11)
-    print 'F12=' + str(F12)
-    print 'score=' + str(score)
+    print ('F11=' + str(F11))
+    print ('F12=' + str(F12))
+    print ('score=' + str(score))
 
 if __name__ == '__main__':
     train_start_date = '2016-02-01'
@@ -355,8 +356,8 @@ if __name__ == '__main__':
     test_start_date = '2016-03-01'
     test_end_date = '2016-03-05'
     user, action, label = make_train_set(train_start_date, train_end_date, test_start_date, test_end_date)
-    print user.head(10)
-    print action.head(10)
+    print (user.head(10))
+    print (action.head(10))
 
 
 
