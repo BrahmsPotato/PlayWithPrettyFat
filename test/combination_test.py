@@ -21,4 +21,5 @@ if __name__ == "__main__":
     for head in range(0,len(array_input)-com_len+2):
         loop(array_input, com_len, head,array_output)
         
-    print array_output
+    print (array_output)
+
