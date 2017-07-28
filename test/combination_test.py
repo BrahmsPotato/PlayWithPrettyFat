@@ -2,9 +2,12 @@ import copy
 
 def loop(array_input, com_len, head, array_output):
     n= com_len-1;sign=range(head+1,head+com_len)
-    while(sign[n-1]<=len(array_input)-1):
+    if(n>1):
+        while(sign[n-1]<=len(array_input)-1):
+            core(head,sign, n,array_input,array_output)
+            sign=[x + 1 for x in sign] 
+    else:
         core(head,sign, n,array_input,array_output)
-        sign=[x + 1 for x in sign] 
 
             
 def core(head, sign, n, array_input,array_output):   
@@ -16,7 +19,10 @@ def core(head, sign, n, array_input,array_output):
         fetch+=1   
 
 if __name__ == "__main__":
-    array_input=[1,2,3,4,5]; com_len=3; array_output=[]
-    for head in range(0,len(array_input)-com_len+1):
-        loop(array_input, com_len, head,array_output)       
-    print(array_output)
+    array_input=[1,2,3,4,5,6,7,8]; com_len=0; array_output=[]
+    if(com_len>1):
+        for head in range(0,len(array_input)-com_len+1):
+            loop(array_input, com_len, head,array_output) 
+    else:
+        array_output=array_input
+    print array_output
