@@ -19,7 +19,7 @@ def core(head, sign, n, array_input,array_output):
         fetch+=1   
 
 if __name__ == "__main__":
-    array_input=[1,2,3,4,5,6,7,8]; com_len=0; array_output=[]
+    array_input=[1,2,3,4,5,6,7,8]; com_len=2; array_output=[]
     if(com_len>1):
         for head in range(0,len(array_input)-com_len+1):
             loop(array_input, com_len, head,array_output) 
